@@ -1,6 +1,6 @@
 <template>
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-dark w-25" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="col-lg-3 col-sm-5 col-10 btn btn-dark h-25" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Add New Contact
 </button>
 

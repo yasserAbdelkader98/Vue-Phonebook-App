@@ -1,5 +1,6 @@
 <template>
-  <div class="d-flex justify-content-around my-3">
+  <div class="d-flex justify-content-around flex-wrap my-3 align-items-center">
+  <SearchContacts @searchKeyword="searchKeywordData"/>
   <AddContact @addNewContact="addButtonData"/>
   </div>
   <div v-if="myPhoneBook.length!==0" class='d-flex justify-content-around flex-wrap setHeight'>
@@ -13,41 +14,46 @@
 <script>
 import Card from './Card.vue';
 import AddContact from './AddContact.vue';
+import SearchContacts from './SearchContacts.vue'
 
 export default {
   components:{
     Card,
-    AddContact
+    AddContact,
+    SearchContacts
   },
-  async created(){
-    try{
-    const response = await fetch('http://localhost:3000/Phonebook');
-    const phonebook = await response.json();
-    return this.myPhoneBook = phonebook;}
-    catch(err){
-      if(err) console.error(err)
-    }
+  created(){
+    this.searchKeywordData('')
   },
   data:()=>({
     myPhoneBook:[],
   }),
   methods:{
-    async addButtonData(userInput){
-        try{
-            const Obj = await fetch(`http://localhost:3000/Phonebook`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },body:JSON.stringify(userInput)
-            });
-            const parsedObj = await Obj.json()
-            this.myPhoneBook.push(parsedObj)
-        }catch(err){
-          console.error(err)
-        }
-        
+    async searchKeywordData(keyWord){
+    try{
+        const response = await fetch(`http://localhost:3000/Phonebook?q=${keyWord}`);
+        const phonebook = await response.json();
+        return this.myPhoneBook = phonebook;
+      }
+    catch(err){
+      if(err) console.error(err)
     }
-  },emits:['addNewContact']
+  },
+  async addButtonData(userInput){
+    try{
+        const Obj = await fetch(`http://localhost:3000/Phonebook`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },body:JSON.stringify(userInput)
+        });
+        const parsedObj = await Obj.json()
+        this.myPhoneBook.push(parsedObj)
+      }catch(err){
+        console.error(err)
+    }    
+  }
+  },emits:['addNewContact','searchKeyword']
 
 }
 </script>
