@@ -3,7 +3,7 @@
     <div class="card-header d-flex justify-content-between">
     <div>#{{contactDetails.id}}</div>
     <div>
-        <EditContact/>
+        <EditContact @editNewContact="editContact"/>
         <DeleteContact/>
     </div>
     </div> 
@@ -20,25 +20,40 @@
 </template>
 <script>
 import DeleteContact from './DeleteContact.vue'
-import EditContact from './EditContact.vue'
+import EditContact from './EditContact'
 
 export default {
     name:'ContactDetails',
-    component:{
+    components:{
         EditContact,
         DeleteContact
         },
     data:()=>({
-        contactDetails:{}
+        contactDetails:{},
     }),
     methods: {
-        
+    async getById(){
+        const response = await fetch(`http://localhost:3000/Phonebook/${this.$route.params.id}`);
+        const contactDetails = await response.json();
+        return this.contactDetails = contactDetails;
+    },
+    async editContact(userInput){
+        try{
+        const response = await fetch(`http://localhost:3000/Phonebook/${this.$route.params.id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+          },body:JSON.stringify(userInput)
+        });
+        const parsedObj = await response.json()
+        this.contactDetails = parsedObj
+        }catch(err){
+        console.error(err)
+        }},
     },
     async created(){
-    const response = await fetch(`http://localhost:3000/Phonebook/${this.$route.params.id}`);
-    const contactDetails = await response.json();
-    return this.contactDetails = contactDetails;
-  },
+        this.getById()
+    }
 }
 
 </script>

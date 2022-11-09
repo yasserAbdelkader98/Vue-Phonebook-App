@@ -1,11 +1,11 @@
 <template>
     <!-- Button trigger modal -->
-<button type="button" class="col-lg-3 col-sm-5 col-10 btn btn-dark h-25" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="col-lg-3 col-sm-5 col-10 btn btn-dark h-25" data-bs-toggle="modal" data-bs-target="#addModal">
   Add New Contact
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,7 +76,7 @@ export default {
             if(!this.nullOrRequired){
               this.modal='modal'           
               this.$swal({
-                title: 'Do you want to save the changes?',
+                title: 'Do you want to save the new Contact?',
                 showDenyButton: true,
                 confirmButtonText: `Save`,
                 denyButtonText: `Don't Save`,

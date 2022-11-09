@@ -16,7 +16,6 @@ import Card from './Card.vue';
 import AddContact from './AddContact.vue';
 import SearchContacts from './SearchContacts.vue'
 
-
 export default {
   components:{
     Card,
