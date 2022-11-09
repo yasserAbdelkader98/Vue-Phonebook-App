@@ -1,4 +1,4 @@
-# newapp
+# PhoneBook App
 
 ## Project setup
 ```
@@ -8,6 +8,11 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
+
+### Database server
+```
+npm run db
 ```
 
 ### Compiles and minifies for production
